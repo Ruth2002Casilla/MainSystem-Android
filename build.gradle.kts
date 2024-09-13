@@ -6,5 +6,4 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
     id("androidx.room") version "2.6.1" apply false
     id("com.google.dagger.hilt.android") version "2.51" apply false
-
 }
