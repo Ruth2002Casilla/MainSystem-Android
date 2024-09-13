@@ -72,11 +72,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 // Navigation
-    implementation(libs.androidx.navigation.fragment.compose)
+   // implementation(libs.androidx.navigation.fragment.compose)
     implementation(libs.gson)
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.navigation.compose)
 
 // Room
     implementation(libs.androidx.room.runtime)
@@ -97,5 +97,8 @@ dependencies {
 
 // Material3
     implementation(libs.material3)
+
+    //Time
+    implementation(libs.threetenabp)
 
 }
