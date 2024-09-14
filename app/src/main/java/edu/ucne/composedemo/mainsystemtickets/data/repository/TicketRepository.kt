@@ -1,8 +1,6 @@
 package edu.ucne.composedemo.mainsystemtickets.data.repository
 
-import edu.ucne.composedemo.mainsystemtickets.data.local.dao.ClienteDao
 import edu.ucne.composedemo.mainsystemtickets.data.local.dao.TicketDao
-import edu.ucne.composedemo.mainsystemtickets.data.local.entity.ClienteEntity
 import edu.ucne.composedemo.mainsystemtickets.data.local.entity.TicketEntity
 import javax.inject.Inject
 
