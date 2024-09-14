@@ -10,4 +10,5 @@
     <string name="menu_sistema">Sistemas</string>
     <string name="menu_ticket">Tickets</string>
     <string name="menu_info">Información</string>
+    <string name="priori">Prioridades</string>
 </resources>

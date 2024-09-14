@@ -10,5 +10,5 @@
     //my colors
     <color name="custom_red">#db2724</color>
     <color name="custom_blue">#000a5f</color>
-
+    <color name="custom_lightBlue">#c4d9fd</color>
 </resources>
