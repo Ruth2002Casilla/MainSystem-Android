@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import edu.ucne.composedemo.mainsystemtickets.R
-import edu.ucne.composedemo.mainsystemtickets.presentation.navigation.menu.AppMenu
+import edu.ucne.composedemo.mainsystemtickets.presentation.component.NavigationDrawer
 
 @Composable
 fun ScreenHome() {
@@ -49,7 +49,7 @@ fun ScreenHome() {
                 .offset(y = 20.dp)
         )
 
-        AppMenu(expandedState)
+        NavigationDrawer(expandedState)
     }
     Box(
         modifier = Modifier
