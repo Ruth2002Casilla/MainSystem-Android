@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MainSystemTickets</string>
+    <string name="bienvenido">Bienvenido a su Aplicación de Asistencia Virtual</string>
+    <string name="descripcion">&quot;La solución más eficiente: optimiza tu tiempo con precisión y confianza.&quot;</string>
+    <string name="start">Empezar</string>
+    <string name="system">QuickFix</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_prioridades">Prioridades</string>
+    <string name="menu_cliente">Clientes</string>
+    <string name="menu_sistema">Sistemas</string>
+    <string name="menu_ticket">Tickets</string>
+    <string name="menu_info">Información</string>
 </resources>
