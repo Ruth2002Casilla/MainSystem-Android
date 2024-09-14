@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.navigation.menu
+package edu.ucne.composedemo.mainsystemtickets.presentation.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import edu.ucne.composedemo.mainsystemtickets.R
 
 @Composable
-fun AppMenu(expandedState: MutableState<Boolean>, iconTintColor: Color = Color.White) {
+fun NavigationDrawer(expandedState: MutableState<Boolean>, iconTintColor: Color = Color.White) {
     val expanded = expandedState.value
     val setExpanded = { value: Boolean -> expandedState.value = value }
 
