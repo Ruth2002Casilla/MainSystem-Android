@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TicketDao {
     @Upsert
-    suspend fun save(ticket: TicketDao)
+    suspend fun save(ticket: TicketEntity)
 
     @Query(
         """
@@ -35,3 +35,4 @@ interface TicketDao {
     @Update
     suspend fun update(updatedTickets: TicketEntity)
 }
+
