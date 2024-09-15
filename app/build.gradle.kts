@@ -24,6 +24,17 @@ android {
         }
     }
 
+    android {
+        defaultConfig {
+            javaCompileOptions {
+                annotationProcessorOptions {
+                    argument("room.schemaLocation", "$projectDir/schemas")
+                }
+            }
+        }
+    }
+
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -37,6 +48,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -72,11 +84,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 // Navigation
-    implementation(libs.androidx.navigation.fragment.compose)
+   // implementation(libs.androidx.navigation.fragment.compose)
     implementation(libs.gson)
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.navigation.compose)
 
 // Room
     implementation(libs.androidx.room.runtime)
@@ -97,5 +109,8 @@ dependencies {
 
 // Material3
     implementation(libs.material3)
+
+    //Time
+
 
 }
