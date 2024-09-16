@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.prioridades
+package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.clientes
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -36,34 +36,34 @@ import edu.ucne.composedemo.mainsystemtickets.R
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
 @Composable
-fun DeletePrioridadesScreen(
-    viewModel: PrioridadViewModel = hiltViewModel(),
-    prioridadId: Int?,
+fun DeleteClientesScreen(
+    viewModel: ClienteViewModel = hiltViewModel(),
+    clienteId: Int?,
     onDrawerToggle: () -> Unit,
-    goToPrioridad: () -> Unit
+    goToCliente: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(key1 = true) {
-        if (prioridadId != null) {
-            viewModel.selectedPrioridad(prioridadId)
+        if (clienteId != null) {
+            viewModel.selectedClientte(clienteId)
         }
     }
-    BodyDeletePrioridades(
+    BodyDeleteClientes(
         uiState = uiState,
         onDrawerToggle = onDrawerToggle,
-        goToPrioridad = goToPrioridad,
-        deletePrioridad = {
+        goToCliente = goToCliente,
+        deleteCliente = {
             viewModel.delete()
         }
     )
 }
 
 @Composable
-fun BodyDeletePrioridades(
+fun BodyDeleteClientes(
     uiState: UiState,
     onDrawerToggle: () -> Unit,
-    goToPrioridad: () -> Unit,
-    deletePrioridad: () -> Unit,
+    goToCliente: () -> Unit,
+    deleteCliente: () -> Unit,
 ){
 
 
@@ -72,7 +72,7 @@ fun BodyDeletePrioridades(
             .fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.mipmap.idexpriori),
+            painter = painterResource(id = R.mipmap.cliente),
             contentDescription = "Background Principal",
             modifier = Modifier
                 .fillMaxSize(),
@@ -103,7 +103,7 @@ fun BodyDeletePrioridades(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "¿Estás seguro que deseas eliminar esta prioridad?",
+                        text = "¿Estás seguro que deseas eliminar este Cliente?",
                         style = TextStyle(
                             color = bluecustom,
                             fontSize = 18.sp,
@@ -130,7 +130,7 @@ fun BodyDeletePrioridades(
                     ) {
                         Button(
                             onClick = {
-                                deletePrioridad()
+                                deleteCliente()
                             },
                             modifier = Modifier
                                 .weight(1f)
@@ -151,7 +151,7 @@ fun BodyDeletePrioridades(
 
                         Button(
                             onClick = {
-                                goToPrioridad()
+                                goToCliente()
                             },
                             modifier = Modifier
                                 .weight(1f)
@@ -174,7 +174,7 @@ fun BodyDeletePrioridades(
             }
             LaunchedEffect(uiState.guardado) {
                 if (uiState.guardado == true) {
-                    goToPrioridad()
+                    goToCliente()
                 }
             }
         }
@@ -185,23 +185,27 @@ fun BodyDeletePrioridades(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun DeletePrioridadesScreenPreview() {
+fun DeleteClientesScreenPreview() {
     val testUiState = UiState(
-        descripcion = null,
-        diascompromiso = null,
+        nombre = "",
+        RNC = "",
+        telefono = "",
+        celular = "",
+        email = "",
+        direccion = "",
         errorMessage = "",
         guardado = false
     )
 
     val onDrawerToggle: () -> Unit = {}
-    val goToPrioridad: () -> Unit = {}
-    val deletePrioridad: () -> Unit = {}
+    val goToCliente: () -> Unit = {}
+    val deleteCliente: () -> Unit = {}
 
-    BodyDeletePrioridades(
+    BodyDeleteClientes(
         uiState = testUiState,
         onDrawerToggle = onDrawerToggle,
-        goToPrioridad = goToPrioridad,
-        deletePrioridad = deletePrioridad
+        goToCliente = goToCliente,
+        deleteCliente = deleteCliente
     )
 }
 

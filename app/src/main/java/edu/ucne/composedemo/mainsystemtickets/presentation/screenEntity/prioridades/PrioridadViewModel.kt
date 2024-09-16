@@ -1,4 +1,4 @@
-package com.aarondeveloper.ticketing.presentation.screens.perioridades
+package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.prioridades
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
