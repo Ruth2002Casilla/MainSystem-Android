@@ -12,9 +12,11 @@ import androidx.navigation.compose.composable
 import edu.ucne.composedemo.mainsystemtickets.data.local.dao.ClienteDao
 import edu.ucne.composedemo.mainsystemtickets.data.local.dao.PrioridadDao
 import edu.ucne.composedemo.mainsystemtickets.data.local.dao.SistemaDao
+import edu.ucne.composedemo.mainsystemtickets.data.local.dao.TicketDao
 import edu.ucne.composedemo.mainsystemtickets.data.local.entities.ClienteEntity
 import edu.ucne.composedemo.mainsystemtickets.data.local.entities.PrioridadEntity
 import edu.ucne.composedemo.mainsystemtickets.data.local.entities.SistemaEntity
+import edu.ucne.composedemo.mainsystemtickets.data.local.entities.TicketEntity
 import edu.ucne.composedemo.mainsystemtickets.presentation.component.NavigationDrawer
 import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.HomeScreen
 import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.clientes.CreateClientesScreen
@@ -30,6 +32,12 @@ import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.sistemas
 import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.sistemas.DeleteSistemasScreen
 import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.sistemas.EditSistemasScreen
 import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.sistemas.IndexSistemasScreen
+import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.tickets.CreateTicketsScreen
+import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.tickets.DeleteTicketsScreen
+import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.tickets.EditTicketScreen
+import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.tickets.EditTicketScreenPreview
+import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.tickets.IndexTicketsScreen
+import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.tickets.PreviewCreateTicketScreen
 import kotlinx.coroutines.flow.Flow
 
 
@@ -42,6 +50,8 @@ fun NavigationNavHost(
     sistemaDao: SistemaDao,
     ClientesLista: Flow<List<ClienteEntity>>,
     clienteDao: ClienteDao,
+    TicketsLista: Flow<List<TicketEntity>>,
+    ticketDao: TicketDao
 ) {
     val isDrawerVisible = remember { mutableStateOf(false) }
 
@@ -246,18 +256,74 @@ fun NavigationNavHost(
                 }
             }
 
+            //Tickets
+            composable(ScreenNavigation.ControlPanelTickets::class.java.simpleName) {
+                IndexTicketsScreen(
+                    onDrawerToggle = {
+                        isDrawerVisible.value = !isDrawerVisible.value
+                    },
+                    goToTiket = {
+                        navHostController.navigate(ScreenNavigation.ControlPanelTickets::class.java.simpleName)
+                    },
+                    createTicket = {
+                        navHostController.navigate(ScreenNavigation.CrearTickets::class.java.simpleName)
+                    },
+                    editTicket = {
+                        navHostController.navigate(ScreenNavigation.EditarTickets::class.java.simpleName + "/${it}")
+                    },
+                    deleteTicket = {
+                        navHostController.navigate(ScreenNavigation.EliminarTickets::class.java.simpleName + "/${it}")
+                    }
+                )
+            }
 
+            composable(ScreenNavigation.CrearTickets::class.java.simpleName) {
+                CreateTicketsScreen(
+                    onDrawerToggle = {
+                        isDrawerVisible.value = !isDrawerVisible.value
+                    },
+                    goToTicket = {
+                        navHostController.navigate(ScreenNavigation.ControlPanelTickets::class.java.simpleName)
+                    }
+                )
+            }
+
+            composable(ScreenNavigation.EditarTickets::class.java.simpleName + "/{ticketId}") { backStackEntry ->
+                val ticketId = backStackEntry.arguments?.getString("ticketId")?.toIntOrNull()
+                if (ticketId != null) {
+                    EditTicketScreen(
+                        ticketId = ticketId,
+                        onDrawerToggle = {
+                            isDrawerVisible.value = !isDrawerVisible.value
+                        },
+                        goToTicket = {
+                            navHostController.navigate(ScreenNavigation.ControlPanelTickets::class.java.simpleName)
+                        }
+                    )
+                }
+            }
+
+            composable(ScreenNavigation.EliminarTickets::class.java.simpleName + "/{ticketId}") { backStackEntry ->
+                val ticketId = backStackEntry.arguments?.getString("ticketId")?.toIntOrNull()
+                if (ticketId != null) {
+                    DeleteTicketsScreen(
+                        ticketId = ticketId,
+                        onDrawerToggle = {
+                            isDrawerVisible.value = !isDrawerVisible.value
+                        },
+                        goToTicket = {
+                            navHostController.navigate(ScreenNavigation.ControlPanelTickets::class.java.simpleName) {
+                                popUpTo(ScreenNavigation.ControlPanelTickets::class.java.simpleName) { inclusive = true }
+                            }
+                        }
+                    )
+                }
+            }
 
 
 
 
         }
-
-
-
-
-
-
 
         NavigationDrawer(
             isVisible = isDrawerVisible.value,
@@ -267,6 +333,7 @@ fun NavigationNavHost(
                     "Prioridades" -> navHostController.navigate(ScreenNavigation.ControlPanelPrioridades::class.java.simpleName)
                     "Sistemas" -> navHostController.navigate(ScreenNavigation.ControlPanelSistemas::class.java.simpleName)
                     "Clientes" -> navHostController.navigate(ScreenNavigation.ControlPanelClientes::class.java.simpleName)
+                    "Tickets" -> navHostController.navigate(ScreenNavigation.ControlPanelTickets::class.java.simpleName)
                 }
                 isDrawerVisible.value = false
             },
