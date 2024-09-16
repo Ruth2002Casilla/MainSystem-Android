@@ -17,7 +17,7 @@ sealed class ScreenNavigation {
     @Serializable
     data class EliminarPrioridades(val prioridadId: Int) : ScreenNavigation()
 
-    //Prioridades
+    //Sistemas
     @Serializable
     object ControlPanelSistemas : ScreenNavigation()
     @Serializable
@@ -27,6 +27,15 @@ sealed class ScreenNavigation {
     @Serializable
     data class EliminarSistemas(val sistemaId: Int) : ScreenNavigation()
 
+    //Clientes
+    @Serializable
+    object ControlPanelClientes : ScreenNavigation()
+    @Serializable
+    object CrearClientes : ScreenNavigation()
+    @Serializable
+    data class EditarClientes(val clienteId: Int?) : ScreenNavigation()
+    @Serializable
+    data class EliminarClientes(val clienteId: Int) : ScreenNavigation()
 
     //Tickets
     @Serializable
