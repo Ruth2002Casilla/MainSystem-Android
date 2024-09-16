@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
         val prioridadDao = quikFixDb.prioridadDao()
         val sistemaDao = quikFixDb.sistemaDao()
         val clienteDao = quikFixDb.clienteDao()
+        val ticketDao = quikFixDb.ticketDao()
 
         setContent {
             MainSystemTicketsTheme {
@@ -41,7 +42,9 @@ class MainActivity : ComponentActivity() {
                     SistemasLista = sistemaDao.getAll(),
                     sistemaDao = sistemaDao,
                     ClientesLista = clienteDao.getAll(),
-                    clienteDao = clienteDao
+                    clienteDao = clienteDao,
+                    ticketDao = ticketDao,
+                    TicketsLista = ticketDao.getAll()
                 )
             }
         }
