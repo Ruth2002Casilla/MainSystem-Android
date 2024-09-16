@@ -9,12 +9,19 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import edu.ucne.composedemo.mainsystemtickets.data.local.dao.ClienteDao
 import edu.ucne.composedemo.mainsystemtickets.data.local.dao.PrioridadDao
 import edu.ucne.composedemo.mainsystemtickets.data.local.dao.SistemaDao
+import edu.ucne.composedemo.mainsystemtickets.data.local.entities.ClienteEntity
 import edu.ucne.composedemo.mainsystemtickets.data.local.entities.PrioridadEntity
 import edu.ucne.composedemo.mainsystemtickets.data.local.entities.SistemaEntity
 import edu.ucne.composedemo.mainsystemtickets.presentation.component.NavigationDrawer
 import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.HomeScreen
+import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.clientes.CreateClientesScreen
+import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.clientes.DeleteClientesScreen
+import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.clientes.DeleteClientesScreenPreview
+import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.clientes.EditClientesScreen
+import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.clientes.IndexClientesScreen
 import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.prioridades.CreatePrioridadesScreen
 import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.prioridades.DeletePrioridadesScreen
 import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.prioridades.EditPrioridadesScreen
@@ -33,6 +40,8 @@ fun NavigationNavHost(
     prioridadDao: PrioridadDao,
     SistemasLista: Flow<List<SistemaEntity>>,
     sistemaDao: SistemaDao,
+    ClientesLista: Flow<List<ClienteEntity>>,
+    clienteDao: ClienteDao,
 ) {
     val isDrawerVisible = remember { mutableStateOf(false) }
 
@@ -108,6 +117,70 @@ fun NavigationNavHost(
                 }
             }
 
+
+            //Clientes
+            composable(ScreenNavigation.ControlPanelClientes::class.java.simpleName) {
+                IndexClientesScreen(
+                    onDrawerToggle = {
+                        isDrawerVisible.value = !isDrawerVisible.value
+                    },
+                    goToCliente = {
+                        navHostController.navigate(ScreenNavigation.ControlPanelClientes::class.java.simpleName)
+                    },
+                    createCliente = {
+                        navHostController.navigate(ScreenNavigation.CrearClientes::class.java.simpleName)
+                    },
+                    editCliente = {
+                        navHostController.navigate(ScreenNavigation.EditarClientes::class.java.simpleName + "/${it}")
+                    },
+                    deleteCliente = {
+                        navHostController.navigate(ScreenNavigation.EliminarClientes::class.java.simpleName + "/${it}")
+                    }
+                )
+            }
+
+            composable(ScreenNavigation.CrearClientes::class.java.simpleName) {
+                CreateClientesScreen(
+                    onDrawerToggle = {
+                        isDrawerVisible.value = !isDrawerVisible.value
+                    },
+                    goToCliente = {
+                        navHostController.navigate(ScreenNavigation.ControlPanelClientes::class.java.simpleName)
+                    }
+                )
+            }
+
+            composable(ScreenNavigation.EditarClientes::class.java.simpleName + "/{clienteId}") { backStackEntry ->
+                val clienteId = backStackEntry.arguments?.getString("clienteId")?.toIntOrNull()
+                if (clienteId != null) {
+                    EditClientesScreen(
+                        clienteId = clienteId,
+                        onDrawerToggle = {
+                            isDrawerVisible.value = !isDrawerVisible.value
+                        },
+                        goToCliente = {
+                            navHostController.navigate(ScreenNavigation.ControlPanelClientes::class.java.simpleName)
+                        }
+                    )
+                }
+            }
+
+            composable(ScreenNavigation.EliminarClientes::class.java.simpleName + "/{clienteId}") { backStackEntry ->
+                val clienteId = backStackEntry.arguments?.getString("clienteId")?.toIntOrNull()
+                if (clienteId != null) {
+                    DeleteClientesScreen(
+                        clienteId = clienteId,
+                        onDrawerToggle = {
+                            isDrawerVisible.value = !isDrawerVisible.value
+                        },
+                        goToCliente = {
+                            navHostController.navigate(ScreenNavigation.ControlPanelClientes::class.java.simpleName) {
+                                popUpTo(ScreenNavigation.ControlPanelClientes::class.java.simpleName) { inclusive = true }
+                            }
+                        }
+                    )
+                }
+            }
 
             //Sistemas
             composable(ScreenNavigation.ControlPanelSistemas::class.java.simpleName) {
@@ -193,6 +266,7 @@ fun NavigationNavHost(
                     "Home" -> navHostController.navigate(ScreenNavigation.Home::class.java.simpleName)
                     "Prioridades" -> navHostController.navigate(ScreenNavigation.ControlPanelPrioridades::class.java.simpleName)
                     "Sistemas" -> navHostController.navigate(ScreenNavigation.ControlPanelSistemas::class.java.simpleName)
+                    "Clientes" -> navHostController.navigate(ScreenNavigation.ControlPanelClientes::class.java.simpleName)
                 }
                 isDrawerVisible.value = false
             },
