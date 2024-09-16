@@ -27,5 +27,8 @@ object AppModule {
     @Singleton
     fun providePrioridadDao(quikFixDb: QuikFixDb) = quikFixDb.prioridadDao()
 
+    @Provides
+    @Singleton
+    fun provideSistemaDao(quikFixDb: QuikFixDb) = quikFixDb.sistemaDao()
 
 }
