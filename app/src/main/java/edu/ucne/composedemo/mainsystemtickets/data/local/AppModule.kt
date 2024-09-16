@@ -35,5 +35,9 @@ object AppModule {
     @Singleton
     fun provideClienteDao(quikFixDb: QuikFixDb) = quikFixDb.clienteDao()
 
+    @Provides
+    @Singleton
+    fun provideTicketDao(quikFixDb: QuikFixDb) = quikFixDb.ticketDao()
+
 
 }
