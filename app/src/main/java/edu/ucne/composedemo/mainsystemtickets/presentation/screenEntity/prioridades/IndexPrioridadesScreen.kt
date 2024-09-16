@@ -59,9 +59,10 @@ fun IndexPrioridadesScreen(
         modifier = Modifier
             .fillMaxSize()
     ) {
+
         Image(
             painter = painterResource(id = R.mipmap.idexpriori),
-            contentDescription = "Background Principal",
+            contentDescription = null,
             modifier = Modifier
                 .fillMaxSize(),
             contentScale = ContentScale.Crop
@@ -148,6 +149,7 @@ fun PrioridadesList(
     onDeleteClick: (PrioridadEntity) -> Unit,
     modifier: Modifier = Modifier
 ) {
+
     LazyColumn(
         modifier = modifier
             .fillMaxWidth()
@@ -174,7 +176,11 @@ fun PrioridadCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp, vertical = 4.dp),
+            .padding(
+                start = 10.dp,
+                end = 10.dp,
+                bottom = 4.dp
+            ),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(8.dp),
         colors = CardDefaults.cardColors(containerColor = bluecustom)
@@ -237,6 +243,7 @@ fun PrioridadCard(
     }
 }
 
+
 @Composable
 fun MensajePersonalizado() {
     Box(
@@ -267,14 +274,20 @@ fun MensajePersonalizado() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun IndexPrioridadesScreenPreview() {
-    // Datos de prueba para PrioridadEntity
+
     val prioridad = PrioridadEntity(
     )
 
     val onEditClick: (PrioridadEntity) -> Unit = { }
     val onDeleteClick: (PrioridadEntity) -> Unit = { }
 
-    // Llamada a PrioridadCard con los parámetros necesarios
+    Image(
+        painter = painterResource(id = R.mipmap.idexpriori),
+        contentDescription = null,
+        modifier = Modifier
+            .fillMaxSize(),
+        contentScale = ContentScale.Crop
+    )
     PrioridadCard(
         prioridad = prioridad,
         onEditClick = onEditClick,
