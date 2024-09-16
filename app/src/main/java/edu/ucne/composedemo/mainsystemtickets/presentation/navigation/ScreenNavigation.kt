@@ -1,5 +1,6 @@
 package edu.ucne.composedemo.mainsystemtickets.presentation.navigation
 
+import android.adservices.adid.AdId
 import kotlinx.serialization.Serializable
 
 sealed class ScreenNavigation {
@@ -15,6 +16,16 @@ sealed class ScreenNavigation {
     data class EditarPrioridades(val prioridadId: Int?) : ScreenNavigation()
     @Serializable
     data class EliminarPrioridades(val prioridadId: Int) : ScreenNavigation()
+
+    //Prioridades
+    @Serializable
+    object ControlPanelSistemas : ScreenNavigation()
+    @Serializable
+    object CrearSistemas : ScreenNavigation()
+    @Serializable
+    data class EditarSistemas(val sistemaId: Int?) : ScreenNavigation()
+    @Serializable
+    data class EliminarSistemas(val sistemaId: Int) : ScreenNavigation()
 
 
     //Tickets

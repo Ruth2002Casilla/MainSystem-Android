@@ -6,9 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
-import com.aarondeveloper.ticketing.presentation.navigation.NavigationNavHost
 import dagger.hilt.android.AndroidEntryPoint
 import edu.ucne.composedemo.mainsystemtickets.data.local.database.QuikFixDb
+import edu.ucne.composedemo.mainsystemtickets.presentation.navigation.NavigationNavHost
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.MainSystemTicketsTheme
 
 @AndroidEntryPoint
@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         val prioridadDao = quikFixDb.prioridadDao()
+        val sistemaDao = quikFixDb.sistemaDao()
 
         setContent {
             MainSystemTicketsTheme {
@@ -35,7 +36,9 @@ class MainActivity : ComponentActivity() {
                 NavigationNavHost(
                     navHostController = navController,
                     PrioridadesLista = prioridadDao.getAll(),
-                    prioridadDao = prioridadDao
+                    prioridadDao = prioridadDao,
+                    SistemasLista = sistemaDao.getAll(),
+                    sistemaDao = sistemaDao
                 )
             }
         }
