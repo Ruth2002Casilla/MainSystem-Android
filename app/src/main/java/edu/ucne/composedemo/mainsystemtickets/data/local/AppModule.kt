@@ -31,4 +31,9 @@ object AppModule {
     @Singleton
     fun provideSistemaDao(quikFixDb: QuikFixDb) = quikFixDb.sistemaDao()
 
+    @Provides
+    @Singleton
+    fun provideClienteDao(quikFixDb: QuikFixDb) = quikFixDb.clienteDao()
+
+
 }
