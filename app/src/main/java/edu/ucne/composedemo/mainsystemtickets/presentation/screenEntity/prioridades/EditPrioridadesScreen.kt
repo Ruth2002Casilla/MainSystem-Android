@@ -45,11 +45,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.aarondeveloper.ticketing.presentation.screens.perioridades.PrioridadViewModel
-import com.aarondeveloper.ticketing.presentation.screens.perioridades.UiState
 import edu.ucne.composedemo.mainsystemtickets.R
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.Black
-import edu.ucne.composedemo.mainsystemtickets.ui.theme.PurpleGrey80
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
 @Composable

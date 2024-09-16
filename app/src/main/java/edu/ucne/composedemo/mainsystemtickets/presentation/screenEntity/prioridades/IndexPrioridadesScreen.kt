@@ -39,7 +39,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.aarondeveloper.ticketing.presentation.screens.perioridades.PrioridadViewModel
 import edu.ucne.composedemo.mainsystemtickets.R
 import edu.ucne.composedemo.mainsystemtickets.data.local.entities.PrioridadEntity
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom

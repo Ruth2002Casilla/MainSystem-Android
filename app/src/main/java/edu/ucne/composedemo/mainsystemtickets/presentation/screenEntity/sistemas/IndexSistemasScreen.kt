@@ -41,7 +41,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import edu.ucne.composedemo.mainsystemtickets.R
 import edu.ucne.composedemo.mainsystemtickets.data.local.entities.SistemaEntity
-import edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.prioridades.PrioridadesList
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
 @Composable

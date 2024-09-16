@@ -32,10 +32,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.aarondeveloper.ticketing.presentation.screens.perioridades.PrioridadViewModel
-import com.aarondeveloper.ticketing.presentation.screens.perioridades.UiState
 import edu.ucne.composedemo.mainsystemtickets.R
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
