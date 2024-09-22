@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.tickets
+package edu.ucne.composedemo.mainsystemtickets.presentation.tickets
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

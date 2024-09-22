@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.tickets
+package edu.ucne.composedemo.mainsystemtickets.presentation.prioridades
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -36,32 +36,34 @@ import edu.ucne.composedemo.mainsystemtickets.R
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
 @Composable
-fun DeleteTicketsScreen(
-    viewModel: TicketViewModel = hiltViewModel(),
-    ticketId : Int?,
+fun DeletePrioridadesScreen(
+    viewModel: PrioridadViewModel = hiltViewModel(),
+    prioridadId: Int?,
     onDrawerToggle: () -> Unit,
-    goToTicket: () -> Unit,
+    goToPrioridad: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(key1 = true) {
-        if (ticketId != null) {
-            viewModel.selectedTicket(ticketId)
+        if (prioridadId != null) {
+            viewModel.selectedPrioridad(prioridadId)
         }
     }
-    BodyDeleteTickets(
+    BodyDeletePrioridades(
         uiState = uiState,
         onDrawerToggle = onDrawerToggle,
-        goToTicket = goToTicket,
-        deleteTicket = viewModel::delete
+        goToPrioridad = goToPrioridad,
+        deletePrioridad = {
+            viewModel.delete()
+        }
     )
 }
 
 @Composable
-fun BodyDeleteTickets(
+fun BodyDeletePrioridades(
     uiState: UiState,
     onDrawerToggle: () -> Unit,
-    goToTicket: () -> Unit,
-    deleteTicket: () -> Unit
+    goToPrioridad: () -> Unit,
+    deletePrioridad: () -> Unit,
 ){
 
 
@@ -70,7 +72,7 @@ fun BodyDeleteTickets(
             .fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.mipmap.tickets),
+            painter = painterResource(id = R.mipmap.idexpriori),
             contentDescription = "Background Principal",
             modifier = Modifier
                 .fillMaxSize(),
@@ -101,7 +103,7 @@ fun BodyDeleteTickets(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "¿Estás seguro que deseas eliminar este Ticket?",
+                        text = "¿Estás seguro que deseas eliminar esta prioridad?",
                         style = TextStyle(
                             color = bluecustom,
                             fontSize = 18.sp,
@@ -128,7 +130,7 @@ fun BodyDeleteTickets(
                     ) {
                         Button(
                             onClick = {
-                                deleteTicket()
+                                deletePrioridad()
                             },
                             modifier = Modifier
                                 .weight(1f)
@@ -149,7 +151,7 @@ fun BodyDeleteTickets(
 
                         Button(
                             onClick = {
-                                goToTicket()
+                                goToPrioridad()
                             },
                             modifier = Modifier
                                 .weight(1f)
@@ -172,7 +174,7 @@ fun BodyDeleteTickets(
             }
             LaunchedEffect(uiState.guardado) {
                 if (uiState.guardado == true) {
-                    goToTicket()
+                    goToPrioridad()
                 }
             }
         }
@@ -183,24 +185,23 @@ fun BodyDeleteTickets(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun DeleteTicketsScreenPreview() {
-
+fun DeletePrioridadesScreenPreview() {
     val testUiState = UiState(
-        asunto = null,
+        descripcion = null,
+        diascompromiso = null,
         errorMessage = "",
         guardado = false
     )
 
     val onDrawerToggle: () -> Unit = {}
-    val goToTicket: () -> Unit = {}
-    val deleteTicket: () -> Unit = {}
+    val goToPrioridad: () -> Unit = {}
+    val deletePrioridad: () -> Unit = {}
 
-    BodyDeleteTickets(
+    BodyDeletePrioridades(
         uiState = testUiState,
         onDrawerToggle = onDrawerToggle,
-        goToTicket = goToTicket,
-        deleteTicket = deleteTicket
+        goToPrioridad = goToPrioridad,
+        deletePrioridad = deletePrioridad
     )
 }
-
 

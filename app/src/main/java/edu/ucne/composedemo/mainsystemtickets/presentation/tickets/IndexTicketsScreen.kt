@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.prioridades
+package edu.ucne.composedemo.mainsystemtickets.presentation.tickets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,17 +40,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import edu.ucne.composedemo.mainsystemtickets.R
-import edu.ucne.composedemo.mainsystemtickets.data.local.entities.PrioridadEntity
+import edu.ucne.composedemo.mainsystemtickets.data.local.entities.TicketEntity
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
 @Composable
-fun IndexPrioridadesScreen(
-    viewModel: PrioridadViewModel = hiltViewModel(),
+fun IndexTicketsScreen(
+    viewModel: TicketViewModel = hiltViewModel(),
     onDrawerToggle: () -> Unit,
-    goToPrioridad: () -> Unit,
-    createPrioridad: () -> Unit,
-    editPrioridad: (Int) -> Unit,
-    deletePrioridad: (Int) -> Unit
+    goToTiket: () -> Unit,
+    createTicket: () -> Unit,
+    editTicket: (Int) -> Unit,
+    deleteTicket: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -60,7 +60,7 @@ fun IndexPrioridadesScreen(
     ) {
 
         Image(
-            painter = painterResource(id = R.mipmap.idexpriori),
+            painter = painterResource(id = R.mipmap.tickets),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxSize(),
@@ -97,19 +97,19 @@ fun IndexPrioridadesScreen(
                 .fillMaxSize()
                 .padding(top = 280.dp)
         ) {
-            if (uiState.prioridades.isEmpty()) {
+            if (uiState.tickets.isEmpty()) {
                 MensajePersonalizado()
             } else {
-                PrioridadesList(
-                    prioridades = uiState.prioridades,
-                    onEditClick = { prioridad ->
-                        prioridad.prioridadId?.let { id ->
-                            editPrioridad(id)
+                TicketsList(
+                    tickets = uiState.tickets,
+                    onEditClick = { ticket ->
+                        ticket.ticketId?.let { id ->
+                            editTicket(id)
                         }
                     },
-                    onDeleteClick = { prioridad ->
-                        prioridad.prioridadId?.let { id ->
-                            deletePrioridad(id)
+                    onDeleteClick = { ticket ->
+                        ticket.ticketId?.let { id ->
+                            deleteTicket(id)
                         }
                     }
                 )
@@ -117,7 +117,7 @@ fun IndexPrioridadesScreen(
         }
 
         FloatingActionButton(
-            onClick = createPrioridad,
+            onClick = createTicket,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 60.dp, end = 16.dp),
@@ -126,7 +126,7 @@ fun IndexPrioridadesScreen(
         ) {
             Icon(
                 imageVector = Icons.Filled.Add,
-                contentDescription = "Agregar Prioridad"
+                contentDescription = "Agregar Ticket"
             )
         }
 
@@ -142,10 +142,10 @@ fun IndexPrioridadesScreen(
 }
 
 @Composable
-fun PrioridadesList(
-    prioridades: List<PrioridadEntity>,
-    onEditClick: (PrioridadEntity) -> Unit,
-    onDeleteClick: (PrioridadEntity) -> Unit,
+fun TicketsList(
+    tickets: List<TicketEntity>,
+    onEditClick: (TicketEntity) -> Unit,
+    onDeleteClick: (TicketEntity) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -154,22 +154,22 @@ fun PrioridadesList(
             .fillMaxWidth()
             .padding(top = 0.dp)
     ) {
-        items(prioridades) { prioridad ->
-            PrioridadCard(
-                prioridad = prioridad,
+        items(tickets) { ticket ->
+            TicketCard(
+                ticket = ticket,
                 onEditClick = onEditClick,
                 onDeleteClick = onDeleteClick,
-                index = prioridades.indexOf(prioridad) + 1
+                index = tickets.indexOf(ticket) + 1
             )
         }
     }
 }
 
 @Composable
-fun PrioridadCard(
-    prioridad: PrioridadEntity,
-    onEditClick: (PrioridadEntity) -> Unit,
-    onDeleteClick: (PrioridadEntity) -> Unit,
+fun TicketCard(
+    ticket: TicketEntity,
+    onEditClick: (TicketEntity) -> Unit,
+    onDeleteClick: (TicketEntity) -> Unit,
     index: Int
 ) {
     Card(
@@ -209,13 +209,13 @@ fun PrioridadCard(
                     .padding(start = 16.dp)
             ) {
                 Text(
-                    text = prioridad.descripcion,
+                    text = ticket.asunto,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     color = White
                 )
                 Text(
-                    text = "${prioridad.diasCompromiso} días",
+                    text = ticket.fecha.toString(),
                     fontSize = 14.sp,
                     color = White
                 )
@@ -223,14 +223,14 @@ fun PrioridadCard(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                IconButton(onClick = { onEditClick(prioridad) }) {
+                IconButton(onClick = { onEditClick(ticket) }) {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_edit_24),
                         contentDescription = "Editar",
                         modifier = Modifier.size(32.dp)
                     )
                 }
-                IconButton(onClick = { onDeleteClick(prioridad) }) {
+                IconButton(onClick = { onDeleteClick(ticket) }) {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_delete_forever_24),
                         contentDescription = "Eliminar",
@@ -241,7 +241,6 @@ fun PrioridadCard(
         }
     }
 }
-
 
 @Composable
 fun MensajePersonalizado() {
@@ -256,12 +255,12 @@ fun MensajePersonalizado() {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.baseline_search_24),
-                contentDescription = "NO SE ENCONTRARON PRIORIDADES",
+                contentDescription = "NO SE ENCONTRARON TICKETS",
                 modifier = Modifier.size(200.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "NO SE ENCONTRARON PRIORIDADES",
+                text = "NO SE ENCONTRARON TICKETS",
                 color = Color.Gray,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
@@ -272,26 +271,29 @@ fun MensajePersonalizado() {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun IndexPrioridadesScreenPreview() {
-
-    val prioridad = PrioridadEntity(
+fun IndexTicketsScreenPreview() {
+    val ticket = TicketEntity(
+        ticketId = 0,
         prioridadId = 0,
-        descripcion = "",
-        diasCompromiso = 0
+        sistemaId = 0,
+        fecha = "",
+        clienteId = 4,
+        asunto = "",
+        descripcion = ""
     )
-
-    val onEditClick: (PrioridadEntity) -> Unit = { }
-    val onDeleteClick: (PrioridadEntity) -> Unit = { }
+    val onEditClick: (TicketEntity) -> Unit = { }
+    val onDeleteClick: (TicketEntity) -> Unit = { }
 
     Image(
-        painter = painterResource(id = R.mipmap.idexpriori),
+        painter = painterResource(id = R.mipmap.tickets),
         contentDescription = null,
         modifier = Modifier
             .fillMaxSize(),
         contentScale = ContentScale.Crop
     )
-    PrioridadCard(
-        prioridad = prioridad,
+
+    TicketCard(
+        ticket = ticket,
         onEditClick = onEditClick,
         onDeleteClick = onDeleteClick,
         index = 1

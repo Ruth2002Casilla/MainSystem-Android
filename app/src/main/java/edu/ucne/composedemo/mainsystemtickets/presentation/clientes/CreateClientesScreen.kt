@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.clientes
+package edu.ucne.composedemo.mainsystemtickets.presentation.clientes
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -50,21 +50,14 @@ import edu.ucne.composedemo.mainsystemtickets.ui.theme.Black
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
 @Composable
-fun EditClientesScreen(
+fun CreateClientesScreen(
     viewModel: ClienteViewModel = hiltViewModel(),
-    clienteId: Int?,
     onDrawerToggle: () -> Unit,
     goToCliente: () -> Unit
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    LaunchedEffect(key1 = true) {
-        if (clienteId != null) {
-            viewModel.selectedClientte(clienteId)
-        }
-    }
-
-    BodyEditClientes(
+    BodyCreateClientes(
         uiState = uiState,
         onNombreChange = viewModel::onNombreChange,
         onRNCChange = viewModel::onRNCChange,
@@ -74,12 +67,12 @@ fun EditClientesScreen(
         onDireccionChange = viewModel::onDireccionChange,
         onDrawerToggle = onDrawerToggle,
         goToCliente = goToCliente,
-        updateCliente = viewModel::update
+        saveCliente = viewModel::save
     )
 }
 
 @Composable
-fun BodyEditClientes(
+fun BodyCreateClientes(
     uiState: UiState,
     onDrawerToggle: () -> Unit,
     onNombreChange: (String) -> Unit,
@@ -89,7 +82,7 @@ fun BodyEditClientes(
     onEmailChange: (String) -> Unit,
     onDireccionChange: (String) -> Unit,
     goToCliente: () -> Unit,
-    updateCliente: () -> Unit
+    saveCliente: () -> Unit
 ) {
 
     Box(
@@ -127,10 +120,10 @@ fun BodyEditClientes(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Box(
+                   Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 10.dp)
+                             .padding(top = 10.dp)
                             .border(BorderStroke(2.dp, bluecustom), shape = RoundedCornerShape(10.dp))
                     ) {
                         BasicTextField(
@@ -366,7 +359,7 @@ fun BodyEditClientes(
 
                     Button(
                         onClick = {
-                            updateCliente()
+                            saveCliente()
                         },
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -381,13 +374,13 @@ fun BodyEditClientes(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Add,
-                                contentDescription = "Actualizar",
+                                contentDescription = "Guardar",
                                 tint = White,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Actualizar",
+                                text = "Guardar",
                                 color = White,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp
@@ -406,11 +399,9 @@ fun BodyEditClientes(
 }
 
 
-
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun EditPrioridadesScreenPreview() {
+fun PreviewCreateClienteScreen() {
     val testUiState = UiState(
         nombre = "",
         RNC = "",
@@ -430,9 +421,9 @@ fun EditPrioridadesScreenPreview() {
     val onTelefonoChange: (String) -> Unit = {}
     val onDireccionChange: (String) -> Unit = {}
     val goToCliente: () -> Unit = {}
-    val updateCliente: () -> Unit = {}
+    val saveCliente: () -> Unit = {}
 
-    BodyEditClientes(
+    BodyCreateClientes(
         uiState = testUiState,
         onDrawerToggle = onDrawerToggle,
         onNombreChange = onNombreChange,
@@ -442,6 +433,7 @@ fun EditPrioridadesScreenPreview() {
         onTelefonoChange = onTelefonoChange,
         onDireccionChange = onDireccionChange,
         goToCliente = goToCliente,
-        updateCliente = updateCliente
+        saveCliente = saveCliente
     )
 }
+

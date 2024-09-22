@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.sistemas
+package edu.ucne.composedemo.mainsystemtickets.presentation.clientes
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,17 +40,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import edu.ucne.composedemo.mainsystemtickets.R
-import edu.ucne.composedemo.mainsystemtickets.data.local.entities.SistemaEntity
+import edu.ucne.composedemo.mainsystemtickets.data.local.entities.ClienteEntity
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
 @Composable
-fun IndexSistemasScreen(
-    viewModel: SistemaViewModel = hiltViewModel(),
+fun IndexClientesScreen(
+    viewModel: ClienteViewModel = hiltViewModel(),
     onDrawerToggle: () -> Unit,
-    goToSistema: () -> Unit,
-    createSistema: () -> Unit,
-    editSistema: (Int) -> Unit,
-    deleteSistema: (Int) -> Unit
+    goToCliente: () -> Unit,
+    createCliente: () -> Unit,
+    editCliente: (Int) -> Unit,
+    deleteCliente: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -60,7 +60,7 @@ fun IndexSistemasScreen(
     ) {
 
         Image(
-            painter = painterResource(id = R.mipmap.sistemas),
+            painter = painterResource(id = R.mipmap.cliente),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxSize(),
@@ -97,19 +97,19 @@ fun IndexSistemasScreen(
                 .fillMaxSize()
                 .padding(top = 280.dp)
         ) {
-            if (uiState.sistemas.isEmpty()) {
+            if (uiState.clientes.isEmpty()) {
                 MensajePersonalizado()
             } else {
-                SistemasList(
-                    sistemas = uiState.sistemas,
-                    onEditClick = { sistema ->
-                        sistema.sistemaId?.let { id ->
-                            editSistema(id)
+                PrioridadesList(
+                    clientes = uiState.clientes,
+                    onEditClick = { cliente ->
+                        cliente.clienteId?.let { id ->
+                            editCliente(id)
                         }
                     },
-                    onDeleteClick = { sistema ->
-                        sistema.sistemaId?.let { id ->
-                            deleteSistema(id)
+                    onDeleteClick = { cliente ->
+                        cliente.clienteId?.let { id ->
+                            deleteCliente(id)
                         }
                     }
                 )
@@ -117,7 +117,7 @@ fun IndexSistemasScreen(
         }
 
         FloatingActionButton(
-            onClick = createSistema,
+            onClick = createCliente,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 60.dp, end = 16.dp),
@@ -126,7 +126,7 @@ fun IndexSistemasScreen(
         ) {
             Icon(
                 imageVector = Icons.Filled.Add,
-                contentDescription = "Agregar Sistema"
+                contentDescription = "Agregar Cliente"
             )
         }
 
@@ -142,10 +142,10 @@ fun IndexSistemasScreen(
 }
 
 @Composable
-fun SistemasList(
-    sistemas: List<SistemaEntity>,
-    onEditClick: (SistemaEntity) -> Unit,
-    onDeleteClick: (SistemaEntity) -> Unit,
+fun PrioridadesList(
+    clientes: List<ClienteEntity>,
+    onEditClick: (ClienteEntity) -> Unit,
+    onDeleteClick: (ClienteEntity) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -154,22 +154,22 @@ fun SistemasList(
             .fillMaxWidth()
             .padding(top = 0.dp)
     ) {
-        items(sistemas) { sistema ->
-            SistemaCard(
-                sistema = sistema,
+        items(clientes) { cliente ->
+            ClienteCard(
+                cliente = cliente,
                 onEditClick = onEditClick,
                 onDeleteClick = onDeleteClick,
-                index = sistemas.indexOf(sistema) + 1
+                index = clientes.indexOf(cliente) + 1
             )
         }
     }
 }
 
 @Composable
-fun SistemaCard(
-    sistema: SistemaEntity,
-    onEditClick: (SistemaEntity) -> Unit,
-    onDeleteClick: (SistemaEntity) -> Unit,
+fun ClienteCard(
+    cliente: ClienteEntity,
+    onEditClick: (ClienteEntity) -> Unit,
+    onDeleteClick: (ClienteEntity) -> Unit,
     index: Int
 ) {
     Card(
@@ -209,23 +209,29 @@ fun SistemaCard(
                     .padding(start = 16.dp)
             ) {
                 Text(
-                    text = sistema.nombre,
+                    text = cliente.nombre ?: "",
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
+                    color = White
+                )
+
+                Text(
+                    text = "${cliente.telefono ?: ""} ",
+                    fontSize = 14.sp,
                     color = White
                 )
             }
             Row(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                IconButton(onClick = { onEditClick(sistema) }) {
+                IconButton(onClick = { onEditClick(cliente) }) {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_edit_24),
                         contentDescription = "Editar",
                         modifier = Modifier.size(32.dp)
                     )
                 }
-                IconButton(onClick = { onDeleteClick(sistema) }) {
+                IconButton(onClick = { onDeleteClick(cliente) }) {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_delete_forever_24),
                         contentDescription = "Eliminar",
@@ -236,6 +242,7 @@ fun SistemaCard(
         }
     }
 }
+
 
 @Composable
 fun MensajePersonalizado() {
@@ -250,12 +257,12 @@ fun MensajePersonalizado() {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.baseline_search_24),
-                contentDescription = "NO SE ENCONTRARON SISTEMAS",
+                contentDescription = "NO SE ENCONTRARON CLIENTES",
                 modifier = Modifier.size(200.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "NO SE ENCONTRARON SISTEMAS",
+                text = "NO SE ENCONTRARON CLIENTES",
                 color = Color.Gray,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
@@ -266,28 +273,35 @@ fun MensajePersonalizado() {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun IndexSistemasScreenPreview() {
-    val sistema = SistemaEntity(
-        sistemaId = 0,
-        nombre = ""
+fun IndexClientesScreenPreview() {
+
+    val cliente = ClienteEntity(
+        clienteId = 0,
+        nombre = "",
+        telefono = "",
+        celular = "",
+        RNC = "",
+        email = "",
+        direccion = ""
     )
 
-    val onEditClick: (SistemaEntity) -> Unit = { }
-    val onDeleteClick: (SistemaEntity) -> Unit = { }
+    val onEditClick: (ClienteEntity) -> Unit = { }
+    val onDeleteClick: (ClienteEntity) -> Unit = { }
 
     Image(
-        painter = painterResource(id = R.mipmap.sistemas),
+        painter = painterResource(id = R.mipmap.cliente),
         contentDescription = null,
         modifier = Modifier
             .fillMaxSize(),
         contentScale = ContentScale.Crop
     )
 
-    SistemaCard(
-        sistema = sistema,
+    ClienteCard(
+        cliente = cliente,
         onEditClick = onEditClick,
         onDeleteClick = onDeleteClick,
         index = 1
     )
 }
+
 

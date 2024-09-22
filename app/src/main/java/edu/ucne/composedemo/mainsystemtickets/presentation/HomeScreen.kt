@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity
+package edu.ucne.composedemo.mainsystemtickets.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

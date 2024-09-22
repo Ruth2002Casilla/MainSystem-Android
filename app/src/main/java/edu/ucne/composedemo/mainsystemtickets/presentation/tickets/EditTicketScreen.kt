@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.tickets
+package edu.ucne.composedemo.mainsystemtickets.presentation.tickets
 
 import android.app.DatePickerDialog
 import android.widget.Toast
@@ -102,7 +102,7 @@ fun BodyEditTickets(
     updateTicket: () -> Unit,
     onSistemaChange: (String) -> Unit,
 
-) {
+    ) {
 
     Box(
         modifier = Modifier

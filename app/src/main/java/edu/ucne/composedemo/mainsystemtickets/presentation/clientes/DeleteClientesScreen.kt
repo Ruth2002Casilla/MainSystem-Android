@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.sistemas
+package edu.ucne.composedemo.mainsystemtickets.presentation.clientes
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -36,34 +36,34 @@ import edu.ucne.composedemo.mainsystemtickets.R
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
 @Composable
-fun DeleteSistemasScreen(
-    viewModel: SistemaViewModel = hiltViewModel(),
-    sistemaId: Int?,
+fun DeleteClientesScreen(
+    viewModel: ClienteViewModel = hiltViewModel(),
+    clienteId: Int?,
     onDrawerToggle: () -> Unit,
-    goToSistema: () -> Unit
+    goToCliente: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(key1 = true) {
-        if (sistemaId != null) {
-            viewModel.selectedSistema(sistemaId)
+        if (clienteId != null) {
+            viewModel.selectedClientte(clienteId)
         }
     }
-    BodyDeleteSistemas(
+    BodyDeleteClientes(
         uiState = uiState,
         onDrawerToggle = onDrawerToggle,
-        goToSistema = goToSistema,
-        deleteSistema = {
+        goToCliente = goToCliente,
+        deleteCliente = {
             viewModel.delete()
         }
     )
 }
 
 @Composable
-fun BodyDeleteSistemas(
+fun BodyDeleteClientes(
     uiState: UiState,
     onDrawerToggle: () -> Unit,
-    goToSistema: () -> Unit,
-    deleteSistema: () -> Unit,
+    goToCliente: () -> Unit,
+    deleteCliente: () -> Unit,
 ){
 
 
@@ -72,7 +72,7 @@ fun BodyDeleteSistemas(
             .fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.mipmap.sistemas),
+            painter = painterResource(id = R.mipmap.cliente),
             contentDescription = "Background Principal",
             modifier = Modifier
                 .fillMaxSize(),
@@ -103,7 +103,7 @@ fun BodyDeleteSistemas(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "¿Estás seguro que deseas eliminar este Sistema?",
+                        text = "¿Estás seguro que deseas eliminar este Cliente?",
                         style = TextStyle(
                             color = bluecustom,
                             fontSize = 18.sp,
@@ -130,7 +130,7 @@ fun BodyDeleteSistemas(
                     ) {
                         Button(
                             onClick = {
-                                deleteSistema()
+                                deleteCliente()
                             },
                             modifier = Modifier
                                 .weight(1f)
@@ -151,7 +151,7 @@ fun BodyDeleteSistemas(
 
                         Button(
                             onClick = {
-                                goToSistema()
+                                goToCliente()
                             },
                             modifier = Modifier
                                 .weight(1f)
@@ -174,7 +174,7 @@ fun BodyDeleteSistemas(
             }
             LaunchedEffect(uiState.guardado) {
                 if (uiState.guardado == true) {
-                    goToSistema()
+                    goToCliente()
                 }
             }
         }
@@ -185,22 +185,27 @@ fun BodyDeleteSistemas(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun DeleteSistemasScreenPreview() {
+fun DeleteClientesScreenPreview() {
     val testUiState = UiState(
-        nombre = null,
+        nombre = "",
+        RNC = "",
+        telefono = "",
+        celular = "",
+        email = "",
+        direccion = "",
         errorMessage = "",
         guardado = false
     )
 
     val onDrawerToggle: () -> Unit = {}
-    val goToSistema: () -> Unit = {}
-    val deleteSistema: () -> Unit = {}
+    val goToCliente: () -> Unit = {}
+    val deleteCliente: () -> Unit = {}
 
-    BodyDeleteSistemas(
+    BodyDeleteClientes(
         uiState = testUiState,
         onDrawerToggle = onDrawerToggle,
-        goToSistema = goToSistema,
-        deleteSistema = deleteSistema
+        goToCliente = goToCliente,
+        deleteCliente = deleteCliente
     )
 }
 

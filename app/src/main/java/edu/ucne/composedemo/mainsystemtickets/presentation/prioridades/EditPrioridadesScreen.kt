@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.prioridades
+package edu.ucne.composedemo.mainsystemtickets.presentation.prioridades
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn

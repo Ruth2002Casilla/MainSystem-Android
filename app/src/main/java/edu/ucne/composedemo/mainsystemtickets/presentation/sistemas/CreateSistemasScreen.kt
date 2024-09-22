@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.sistemas
+package edu.ucne.composedemo.mainsystemtickets.presentation.sistemas
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -48,36 +48,29 @@ import edu.ucne.composedemo.mainsystemtickets.ui.theme.Black
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
 @Composable
-fun EditSistemasScreen(
+fun CreateSistemasScreen(
     viewModel: SistemaViewModel = hiltViewModel(),
-    sistemaId: Int?,
     onDrawerToggle: () -> Unit,
     goToSistema: () -> Unit
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    LaunchedEffect(key1 = true) {
-        if (sistemaId != null) {
-            viewModel.selectedSistema(sistemaId)
-        }
-    }
-
-    BodyEditSistemas(
+    BodyCreateSistemas(
         uiState = uiState,
         onNombreChange = viewModel::onNombreChange,
         onDrawerToggle = onDrawerToggle,
         goToSistema = goToSistema,
-        updateSistema = viewModel::update
+        saveSistema = viewModel::save
     )
 }
 
 @Composable
-fun BodyEditSistemas(
+fun BodyCreateSistemas(
     uiState: UiState,
     onDrawerToggle: () -> Unit,
     onNombreChange: (String) -> Unit,
     goToSistema: () -> Unit,
-    updateSistema: () -> Unit
+    saveSistema: () -> Unit
 ) {
 
     Box(
@@ -164,7 +157,7 @@ fun BodyEditSistemas(
 
                     Button(
                         onClick = {
-                            updateSistema()
+                            saveSistema()
                         },
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -179,13 +172,13 @@ fun BodyEditSistemas(
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Add,
-                                contentDescription = "Actualizar",
+                                contentDescription = "Guardar",
                                 tint = White,
                                 modifier = Modifier.size(24.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = "Actualizar",
+                                text = "Guardar",
                                 color = White,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp
@@ -204,11 +197,9 @@ fun BodyEditSistemas(
 }
 
 
-
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun EditPrioridadesScreenPreview() {
+fun PreviewCreateSistemaScreen() {
     val testUiState = UiState(
         nombre = "",
         errorMessage = null,
@@ -218,13 +209,14 @@ fun EditPrioridadesScreenPreview() {
     val onDrawerToggle: () -> Unit = {}
     val onNombreChange: (String) -> Unit = {}
     val goToSistema: () -> Unit = {}
-    val updateSistema: () -> Unit = {}
+    val saveSistema: () -> Unit = {}
 
-    BodyEditSistemas(
+    BodyCreateSistemas(
         uiState = testUiState,
         onDrawerToggle = onDrawerToggle,
         onNombreChange = onNombreChange,
         goToSistema = goToSistema,
-        updateSistema = updateSistema
+        saveSistema = saveSistema
     )
 }
+

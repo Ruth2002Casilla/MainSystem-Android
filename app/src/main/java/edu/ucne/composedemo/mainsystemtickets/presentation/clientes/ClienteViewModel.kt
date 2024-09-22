@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.clientes
+package edu.ucne.composedemo.mainsystemtickets.presentation.clientes
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
