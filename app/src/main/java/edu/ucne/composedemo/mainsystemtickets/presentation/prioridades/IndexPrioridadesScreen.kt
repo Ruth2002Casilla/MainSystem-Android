@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.clientes
+package edu.ucne.composedemo.mainsystemtickets.presentation.prioridades
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,17 +40,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import edu.ucne.composedemo.mainsystemtickets.R
-import edu.ucne.composedemo.mainsystemtickets.data.local.entities.ClienteEntity
+import edu.ucne.composedemo.mainsystemtickets.data.local.entities.PrioridadEntity
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
 @Composable
-fun IndexClientesScreen(
-    viewModel: ClienteViewModel = hiltViewModel(),
+fun IndexPrioridadesScreen(
+    viewModel: PrioridadViewModel = hiltViewModel(),
     onDrawerToggle: () -> Unit,
-    goToCliente: () -> Unit,
-    createCliente: () -> Unit,
-    editCliente: (Int) -> Unit,
-    deleteCliente: (Int) -> Unit
+    goToPrioridad: () -> Unit,
+    createPrioridad: () -> Unit,
+    editPrioridad: (Int) -> Unit,
+    deletePrioridad: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -60,7 +60,7 @@ fun IndexClientesScreen(
     ) {
 
         Image(
-            painter = painterResource(id = R.mipmap.cliente),
+            painter = painterResource(id = R.mipmap.idexpriori),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxSize(),
@@ -97,19 +97,19 @@ fun IndexClientesScreen(
                 .fillMaxSize()
                 .padding(top = 280.dp)
         ) {
-            if (uiState.clientes.isEmpty()) {
+            if (uiState.prioridades.isEmpty()) {
                 MensajePersonalizado()
             } else {
                 PrioridadesList(
-                    clientes = uiState.clientes,
-                    onEditClick = { cliente ->
-                        cliente.clienteId?.let { id ->
-                            editCliente(id)
+                    prioridades = uiState.prioridades,
+                    onEditClick = { prioridad ->
+                        prioridad.prioridadId?.let { id ->
+                            editPrioridad(id)
                         }
                     },
-                    onDeleteClick = { cliente ->
-                        cliente.clienteId?.let { id ->
-                            deleteCliente(id)
+                    onDeleteClick = { prioridad ->
+                        prioridad.prioridadId?.let { id ->
+                            deletePrioridad(id)
                         }
                     }
                 )
@@ -117,7 +117,7 @@ fun IndexClientesScreen(
         }
 
         FloatingActionButton(
-            onClick = createCliente,
+            onClick = createPrioridad,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 60.dp, end = 16.dp),
@@ -126,7 +126,7 @@ fun IndexClientesScreen(
         ) {
             Icon(
                 imageVector = Icons.Filled.Add,
-                contentDescription = "Agregar Cliente"
+                contentDescription = "Agregar Prioridad"
             )
         }
 
@@ -143,9 +143,9 @@ fun IndexClientesScreen(
 
 @Composable
 fun PrioridadesList(
-    clientes: List<ClienteEntity>,
-    onEditClick: (ClienteEntity) -> Unit,
-    onDeleteClick: (ClienteEntity) -> Unit,
+    prioridades: List<PrioridadEntity>,
+    onEditClick: (PrioridadEntity) -> Unit,
+    onDeleteClick: (PrioridadEntity) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -154,22 +154,22 @@ fun PrioridadesList(
             .fillMaxWidth()
             .padding(top = 0.dp)
     ) {
-        items(clientes) { cliente ->
-            ClienteCard(
-                cliente = cliente,
+        items(prioridades) { prioridad ->
+            PrioridadCard(
+                prioridad = prioridad,
                 onEditClick = onEditClick,
                 onDeleteClick = onDeleteClick,
-                index = clientes.indexOf(cliente) + 1
+                index = prioridades.indexOf(prioridad) + 1
             )
         }
     }
 }
 
 @Composable
-fun ClienteCard(
-    cliente: ClienteEntity,
-    onEditClick: (ClienteEntity) -> Unit,
-    onDeleteClick: (ClienteEntity) -> Unit,
+fun PrioridadCard(
+    prioridad: PrioridadEntity,
+    onEditClick: (PrioridadEntity) -> Unit,
+    onDeleteClick: (PrioridadEntity) -> Unit,
     index: Int
 ) {
     Card(
@@ -209,14 +209,13 @@ fun ClienteCard(
                     .padding(start = 16.dp)
             ) {
                 Text(
-                    text = cliente.nombre ?: "",
+                    text = prioridad.descripcion,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     color = White
                 )
-
                 Text(
-                    text = "${cliente.telefono ?: ""} ",
+                    text = "${prioridad.diasCompromiso} días",
                     fontSize = 14.sp,
                     color = White
                 )
@@ -224,14 +223,14 @@ fun ClienteCard(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                IconButton(onClick = { onEditClick(cliente) }) {
+                IconButton(onClick = { onEditClick(prioridad) }) {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_edit_24),
                         contentDescription = "Editar",
                         modifier = Modifier.size(32.dp)
                     )
                 }
-                IconButton(onClick = { onDeleteClick(cliente) }) {
+                IconButton(onClick = { onDeleteClick(prioridad) }) {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_delete_forever_24),
                         contentDescription = "Eliminar",
@@ -257,12 +256,12 @@ fun MensajePersonalizado() {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.baseline_search_24),
-                contentDescription = "NO SE ENCONTRARON CLIENTES",
+                contentDescription = "NO SE ENCONTRARON PRIORIDADES",
                 modifier = Modifier.size(200.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "NO SE ENCONTRARON CLIENTES",
+                text = "NO SE ENCONTRARON PRIORIDADES",
                 color = Color.Gray,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
@@ -273,23 +272,26 @@ fun MensajePersonalizado() {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun IndexClientesScreenPreview() {
+fun IndexPrioridadesScreenPreview() {
 
-    val cliente = ClienteEntity(
+    val prioridad = PrioridadEntity(
+        prioridadId = 0,
+        descripcion = "",
+        diasCompromiso = 0
     )
 
-    val onEditClick: (ClienteEntity) -> Unit = { }
-    val onDeleteClick: (ClienteEntity) -> Unit = { }
+    val onEditClick: (PrioridadEntity) -> Unit = { }
+    val onDeleteClick: (PrioridadEntity) -> Unit = { }
 
     Image(
-        painter = painterResource(id = R.mipmap.cliente),
+        painter = painterResource(id = R.mipmap.idexpriori),
         contentDescription = null,
         modifier = Modifier
             .fillMaxSize(),
         contentScale = ContentScale.Crop
     )
-    ClienteCard(
-        cliente = cliente,
+    PrioridadCard(
+        prioridad = prioridad,
         onEditClick = onEditClick,
         onDeleteClick = onDeleteClick,
         index = 1

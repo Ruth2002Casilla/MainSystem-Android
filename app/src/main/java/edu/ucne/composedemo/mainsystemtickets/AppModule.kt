@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.data.local
+package edu.ucne.composedemo.mainsystemtickets
 
 import android.content.Context
 import androidx.room.Room
@@ -34,6 +34,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideClienteDao(quikFixDb: QuikFixDb) = quikFixDb.clienteDao()
+
+    @Provides
+    @Singleton
+    fun provideTicketDao(quikFixDb: QuikFixDb) = quikFixDb.ticketDao()
 
 
 }

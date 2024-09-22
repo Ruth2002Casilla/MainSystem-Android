@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.prioridades
+package edu.ucne.composedemo.mainsystemtickets.presentation.sistemas
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,17 +40,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import edu.ucne.composedemo.mainsystemtickets.R
-import edu.ucne.composedemo.mainsystemtickets.data.local.entities.PrioridadEntity
+import edu.ucne.composedemo.mainsystemtickets.data.local.entities.SistemaEntity
 import edu.ucne.composedemo.mainsystemtickets.ui.theme.bluecustom
 
 @Composable
-fun IndexPrioridadesScreen(
-    viewModel: PrioridadViewModel = hiltViewModel(),
+fun IndexSistemasScreen(
+    viewModel: SistemaViewModel = hiltViewModel(),
     onDrawerToggle: () -> Unit,
-    goToPrioridad: () -> Unit,
-    createPrioridad: () -> Unit,
-    editPrioridad: (Int) -> Unit,
-    deletePrioridad: (Int) -> Unit
+    goToSistema: () -> Unit,
+    createSistema: () -> Unit,
+    editSistema: (Int) -> Unit,
+    deleteSistema: (Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -60,7 +60,7 @@ fun IndexPrioridadesScreen(
     ) {
 
         Image(
-            painter = painterResource(id = R.mipmap.idexpriori),
+            painter = painterResource(id = R.mipmap.sistemas),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxSize(),
@@ -97,19 +97,19 @@ fun IndexPrioridadesScreen(
                 .fillMaxSize()
                 .padding(top = 280.dp)
         ) {
-            if (uiState.prioridades.isEmpty()) {
+            if (uiState.sistemas.isEmpty()) {
                 MensajePersonalizado()
             } else {
-                PrioridadesList(
-                    prioridades = uiState.prioridades,
-                    onEditClick = { prioridad ->
-                        prioridad.PrioridadId?.let { id ->
-                            editPrioridad(id)
+                SistemasList(
+                    sistemas = uiState.sistemas,
+                    onEditClick = { sistema ->
+                        sistema.sistemaId?.let { id ->
+                            editSistema(id)
                         }
                     },
-                    onDeleteClick = { prioridad ->
-                        prioridad.PrioridadId?.let { id ->
-                            deletePrioridad(id)
+                    onDeleteClick = { sistema ->
+                        sistema.sistemaId?.let { id ->
+                            deleteSistema(id)
                         }
                     }
                 )
@@ -117,7 +117,7 @@ fun IndexPrioridadesScreen(
         }
 
         FloatingActionButton(
-            onClick = createPrioridad,
+            onClick = createSistema,
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 60.dp, end = 16.dp),
@@ -126,7 +126,7 @@ fun IndexPrioridadesScreen(
         ) {
             Icon(
                 imageVector = Icons.Filled.Add,
-                contentDescription = "Agregar Prioridad"
+                contentDescription = "Agregar Sistema"
             )
         }
 
@@ -142,10 +142,10 @@ fun IndexPrioridadesScreen(
 }
 
 @Composable
-fun PrioridadesList(
-    prioridades: List<PrioridadEntity>,
-    onEditClick: (PrioridadEntity) -> Unit,
-    onDeleteClick: (PrioridadEntity) -> Unit,
+fun SistemasList(
+    sistemas: List<SistemaEntity>,
+    onEditClick: (SistemaEntity) -> Unit,
+    onDeleteClick: (SistemaEntity) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -154,22 +154,22 @@ fun PrioridadesList(
             .fillMaxWidth()
             .padding(top = 0.dp)
     ) {
-        items(prioridades) { prioridad ->
-            PrioridadCard(
-                prioridad = prioridad,
+        items(sistemas) { sistema ->
+            SistemaCard(
+                sistema = sistema,
                 onEditClick = onEditClick,
                 onDeleteClick = onDeleteClick,
-                index = prioridades.indexOf(prioridad) + 1
+                index = sistemas.indexOf(sistema) + 1
             )
         }
     }
 }
 
 @Composable
-fun PrioridadCard(
-    prioridad: PrioridadEntity,
-    onEditClick: (PrioridadEntity) -> Unit,
-    onDeleteClick: (PrioridadEntity) -> Unit,
+fun SistemaCard(
+    sistema: SistemaEntity,
+    onEditClick: (SistemaEntity) -> Unit,
+    onDeleteClick: (SistemaEntity) -> Unit,
     index: Int
 ) {
     Card(
@@ -209,28 +209,23 @@ fun PrioridadCard(
                     .padding(start = 16.dp)
             ) {
                 Text(
-                    text = prioridad.Descripcion,
+                    text = sistema.nombre,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
-                    color = White
-                )
-                Text(
-                    text = "${prioridad.DiasCompromiso} días",
-                    fontSize = 14.sp,
                     color = White
                 )
             }
             Row(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                IconButton(onClick = { onEditClick(prioridad) }) {
+                IconButton(onClick = { onEditClick(sistema) }) {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_edit_24),
                         contentDescription = "Editar",
                         modifier = Modifier.size(32.dp)
                     )
                 }
-                IconButton(onClick = { onDeleteClick(prioridad) }) {
+                IconButton(onClick = { onDeleteClick(sistema) }) {
                     Image(
                         painter = painterResource(id = R.drawable.baseline_delete_forever_24),
                         contentDescription = "Eliminar",
@@ -241,7 +236,6 @@ fun PrioridadCard(
         }
     }
 }
-
 
 @Composable
 fun MensajePersonalizado() {
@@ -256,12 +250,12 @@ fun MensajePersonalizado() {
         ) {
             Image(
                 painter = painterResource(id = R.drawable.baseline_search_24),
-                contentDescription = "NO SE ENCONTRARON PRIORIDADES",
+                contentDescription = "NO SE ENCONTRARON SISTEMAS",
                 modifier = Modifier.size(200.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "NO SE ENCONTRARON PRIORIDADES",
+                text = "NO SE ENCONTRARON SISTEMAS",
                 color = Color.Gray,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
@@ -272,23 +266,25 @@ fun MensajePersonalizado() {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun IndexPrioridadesScreenPreview() {
-
-    val prioridad = PrioridadEntity(
+fun IndexSistemasScreenPreview() {
+    val sistema = SistemaEntity(
+        sistemaId = 0,
+        nombre = ""
     )
 
-    val onEditClick: (PrioridadEntity) -> Unit = { }
-    val onDeleteClick: (PrioridadEntity) -> Unit = { }
+    val onEditClick: (SistemaEntity) -> Unit = { }
+    val onDeleteClick: (SistemaEntity) -> Unit = { }
 
     Image(
-        painter = painterResource(id = R.mipmap.idexpriori),
+        painter = painterResource(id = R.mipmap.sistemas),
         contentDescription = null,
         modifier = Modifier
             .fillMaxSize(),
         contentScale = ContentScale.Crop
     )
-    PrioridadCard(
-        prioridad = prioridad,
+
+    SistemaCard(
+        sistema = sistema,
         onEditClick = onEditClick,
         onDeleteClick = onDeleteClick,
         index = 1

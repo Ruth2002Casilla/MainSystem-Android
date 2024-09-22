@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.clientes
+package edu.ucne.composedemo.mainsystemtickets.presentation.clientes
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -201,7 +201,7 @@ data class UiState(
 )
 
 fun UiState.toEntity() = ClienteEntity(
-    clienteId = clienteId,
+    clienteId = clienteId ?: 0,
     nombre = nombre ?: "",
     telefono = telefono ?: "",
     celular = celular ?: "",

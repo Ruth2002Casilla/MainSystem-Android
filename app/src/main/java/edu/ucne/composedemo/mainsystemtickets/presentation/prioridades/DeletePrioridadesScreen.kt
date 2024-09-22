@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.presentation.screenEntity.prioridades
+package edu.ucne.composedemo.mainsystemtickets.presentation.prioridades
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
