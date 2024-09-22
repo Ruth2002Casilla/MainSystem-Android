@@ -103,12 +103,12 @@ fun IndexTicketsScreen(
                 TicketsList(
                     tickets = uiState.tickets,
                     onEditClick = { ticket ->
-                        ticket.TicketId?.let { id ->
+                        ticket.ticketId?.let { id ->
                             editTicket(id)
                         }
                     },
                     onDeleteClick = { ticket ->
-                        ticket.TicketId?.let { id ->
+                        ticket.ticketId?.let { id ->
                             deleteTicket(id)
                         }
                     }
@@ -209,13 +209,13 @@ fun TicketCard(
                     .padding(start = 16.dp)
             ) {
                 Text(
-                    text = ticket.Asunto,
+                    text = ticket.asunto,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     color = White
                 )
                 Text(
-                    text = ticket.Fecha.toString(),
+                    text = ticket.fecha.toString(),
                     fontSize = 14.sp,
                     color = White
                 )
@@ -273,8 +273,14 @@ fun MensajePersonalizado() {
 @Composable
 fun IndexTicketsScreenPreview() {
     val ticket = TicketEntity(
+        ticketId = 0,
+        prioridadId = 0,
+        sistemaId = 0,
+        fecha = "",
+        clienteId = 4,
+        asunto = "",
+        descripcion = ""
     )
-
     val onEditClick: (TicketEntity) -> Unit = { }
     val onDeleteClick: (TicketEntity) -> Unit = { }
 

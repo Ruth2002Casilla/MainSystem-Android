@@ -201,7 +201,7 @@ data class UiState(
 )
 
 fun UiState.toEntity() = ClienteEntity(
-    clienteId = clienteId,
+    clienteId = clienteId ?: 0,
     nombre = nombre ?: "",
     telefono = telefono ?: "",
     celular = celular ?: "",

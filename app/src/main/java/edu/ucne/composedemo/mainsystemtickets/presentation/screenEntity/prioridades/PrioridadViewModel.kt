@@ -38,7 +38,7 @@ class PrioridadViewModel @Inject constructor(
                 return@launch
             }
 
-            val existe = _uiState.value.prioridades.firstOrNull { it.Descripcion == _uiState.value.descripcion }
+            val existe = _uiState.value.prioridades.firstOrNull { it.descripcion == _uiState.value.descripcion }
 
             if (existe != null) {
                 _uiState.update {
@@ -71,7 +71,7 @@ class PrioridadViewModel @Inject constructor(
             }
 
             val existe = _uiState.value.prioridades.firstOrNull {
-                it.Descripcion == _uiState.value.descripcion && it.PrioridadId != _uiState.value.prioridadId
+                it.descripcion == _uiState.value.descripcion && it.prioridadId != _uiState.value.prioridadId
             }
 
             if (existe != null) {
@@ -92,9 +92,9 @@ class PrioridadViewModel @Inject constructor(
                 val prioridad = prioridadRepository.getPrioridad(prioridadId)
                 _uiState.update { currentState ->
                     currentState.copy(
-                        prioridadId = prioridad?.PrioridadId,
-                        descripcion = prioridad?.Descripcion ?: "",
-                        diascompromiso = prioridad?.DiasCompromiso?.toString() ?: "",
+                        prioridadId = prioridad?.prioridadId,
+                        descripcion = prioridad?.descripcion ?: "",
+                        diascompromiso = prioridad?.diasCompromiso?.toString() ?: "",
                         errorMessage = null
                     )
                 }
@@ -141,7 +141,7 @@ data class UiState(
 )
 
 fun UiState.toEntity() = PrioridadEntity(
-    PrioridadId = prioridadId,
-    Descripcion = descripcion ?: "",
-    DiasCompromiso = diascompromiso?.toIntOrNull() ?: 0
+    prioridadId = prioridadId ?: 0,
+    descripcion = descripcion ?: "",
+    diasCompromiso = diascompromiso?.toIntOrNull() ?: 0
 )

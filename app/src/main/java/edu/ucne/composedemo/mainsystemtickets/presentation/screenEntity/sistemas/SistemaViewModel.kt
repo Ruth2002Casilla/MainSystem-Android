@@ -124,6 +124,6 @@ data class UiState(
 )
 
 fun UiState.toEntity() = SistemaEntity(
-    sistemaId = sistemaId,
+    sistemaId = sistemaId ?: 0,
     nombre = nombre ?: "",
 )

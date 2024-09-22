@@ -276,6 +276,13 @@ fun MensajePersonalizado() {
 fun IndexClientesScreenPreview() {
 
     val cliente = ClienteEntity(
+        clienteId = 0,
+        nombre = "",
+        telefono = "",
+        celular = "",
+        RNC = "",
+        email = "",
+        direccion = ""
     )
 
     val onEditClick: (ClienteEntity) -> Unit = { }
@@ -288,6 +295,7 @@ fun IndexClientesScreenPreview() {
             .fillMaxSize(),
         contentScale = ContentScale.Crop
     )
+
     ClienteCard(
         cliente = cliente,
         onEditClick = onEditClick,
@@ -295,4 +303,5 @@ fun IndexClientesScreenPreview() {
         index = 1
     )
 }
+
 

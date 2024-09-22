@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Sistemas")
 data class SistemaEntity (
     @PrimaryKey(autoGenerate = true)
-    val sistemaId: Int? = null,
-    var nombre: String = ""
+    val sistemaId: Int,
+    val nombre: String = ""
 )

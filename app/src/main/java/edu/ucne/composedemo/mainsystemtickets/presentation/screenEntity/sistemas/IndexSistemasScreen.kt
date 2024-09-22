@@ -268,6 +268,8 @@ fun MensajePersonalizado() {
 @Composable
 fun IndexSistemasScreenPreview() {
     val sistema = SistemaEntity(
+        sistemaId = 0,
+        nombre = ""
     )
 
     val onEditClick: (SistemaEntity) -> Unit = { }
