@@ -1,4 +1,4 @@
-package edu.ucne.composedemo.mainsystemtickets.data.local
+package edu.ucne.composedemo.mainsystemtickets
 
 import android.content.Context
 import androidx.room.Room
