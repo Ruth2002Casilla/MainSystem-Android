@@ -27,7 +27,7 @@ interface TicketDao {
     suspend fun find(id: Int): TicketEntity?
 
     @Delete
-    suspend fun delete(da: TicketEntity)
+    suspend fun delete(ticket: TicketEntity)
 
     @Query("SELECT * FROM Tickets")
     fun getAll(): Flow<List<TicketEntity>>
